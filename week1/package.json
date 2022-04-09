@@ -1,0 +1,15 @@
+{
+  "name": "week1",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "package.json",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Kai Huang",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
