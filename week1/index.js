@@ -7,6 +7,8 @@ import { parse } from "querystring";
 
 http.createServer((req,res) => {
     var path = req.url.toLowerCase();
+    let url = req.url.split("?"); 
+    let query = parse(url[1]);
     switch(path) {
         case '/':
             fs.readFile("home.html", (err, data) => {
@@ -22,9 +24,7 @@ http.createServer((req,res) => {
                 res.end(data.toString());
             });
            break;
-        case '/detail':
-            let url = req.url.split("?"); 
-            let query = parse(url[1]);
+        case '/detail?{$query}':
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end(console.log(cars.getItem(query)));
             break;

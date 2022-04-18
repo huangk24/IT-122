@@ -19,6 +19,6 @@ export let getAll = () => {
 
 export let getItem = (value) => {
     return cars.find((item) => {
-        return item["name"] == value;
+        return item["name"] === value;
     })
 };
