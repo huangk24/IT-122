@@ -14,7 +14,8 @@ http.createServer((req,res) => {
             fs.readFile("home.html", (err, data) => {
                 if (err) return console.error(err);
                    res.writeHead(200, {'Content-Type': 'text/html'});
-                res.end(JSON.stringify(cars.getAll));
+                res.write(data.toString());
+                res.end(JSON.stringify(cars.getAll()));
             });
             break;
         case '/about':
@@ -26,7 +27,7 @@ http.createServer((req,res) => {
            break;
         case '/detail?{$query}':
             res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end(console.log(cars.getItem(query)));
+            res.end(JSON.stringify(cars.getItem(query)));
             break;
         default:
             res.writeHead(404, {'Content-Type': 'text/plain'});
