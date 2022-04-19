@@ -9,7 +9,7 @@ http.createServer((req,res) => {
     var path = req.url.toLowerCase();
     let url = req.url.split("?"); 
     let query = parse(url[1]);
-    switch(path) {
+    switch(url[0]) {
         case '/':
             fs.readFile("home.html", (err, data) => {
                 if (err) return console.error(err);
@@ -25,9 +25,10 @@ http.createServer((req,res) => {
                 res.end(data.toString());
             });
            break;
-        case '/detail?{$query}':
+        case '/detail':
             res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end(JSON.stringify(cars.getItem(query)));
+            res.write('Detail for ' + query["name"]);
+            res.end(JSON.stringify(cars.getItem(query["name"])));
             break;
         default:
             res.writeHead(404, {'Content-Type': 'text/plain'});
