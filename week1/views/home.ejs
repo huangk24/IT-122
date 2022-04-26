@@ -5,8 +5,8 @@
     <hr>
     <h3>Cars</h3>
 
-    <% cars.forEach(function(car) { %>
-        <li><a href="/detail?name=<%= car.name %>"> <p><%= car.name %> $:<%= car.price %></p></li>
+    <% names.forEach(function(name) { %>
+        <li><a href="/detail?name=<%= name.name %>"> <p><%= name.name %></p></li>
     <% }); %>
 
 </body>
