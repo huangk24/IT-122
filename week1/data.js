@@ -15,10 +15,29 @@ export let getAll = () => {
     return cars;
 };
 
-
-
 export let getItem = (value) => {
     return cars.find((item) => {
         return item["name"] === value;
     })
 };
+
+export let addItem = (newCar) => {
+  if (cars.includes(newCar)) {
+    cars.push({name : newCar.name, brand: newCar.brand, horsepower: newCar.horsepower, price: newCar.price}); 
+    return false;
+  } else {
+    // item already exist
+    return true;
+  }
+}
+
+export let deleteItem = (value) => {
+  if (cars.includes(value)) {
+    let index = cars.indexOf(value);
+    cars.splice(index, 1);
+    return true;
+  } else {
+    // item is not in the array
+    return false;
+  }
+}
