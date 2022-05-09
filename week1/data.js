@@ -1,5 +1,3 @@
-import { Car } from "../Cars.js";
-
 let cars = [
     { name: "M8 Competition Gran Coupe", brand : "BMW", horsepower : 617, 
       price : 130000 }, 
@@ -14,18 +12,18 @@ let cars = [
 ]
 
 export let getAll = () => {
-    return Car;
+    return cars;
 };
 
 export let getItem = (value) => {
-    return Car.find((item) => {
+    return cars.find((item) => {
         return item["name"] === value;
     })
 };
 
 export let addItem = (newCar) => {
-  if (Car.includes(newCar)) {
-    Car.push({name : newCar.name, brand: newCar.brand, horsepower: newCar.horsepower, price: newCar.price}); 
+  if (cars.includes(newCar)) {
+    cars.push({name : newCar.name, brand: newCar.brand, horsepower: newCar.horsepower, price: newCar.price}); 
     return false;
   } else {
     // item already exist
@@ -34,9 +32,9 @@ export let addItem = (newCar) => {
 }
 
 export let deleteItem = (value) => {
-  if (Car.includes(value)) {
-    let index = Car.indexOf(value);
-    Car.splice(index, 1);
+  if (cars.includes(value)) {
+    let index = cars.indexOf(value);
+    cars.splice(index, 1);
     return true;
   } else {
     // item is not in the array
