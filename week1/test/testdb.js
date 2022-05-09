@@ -6,5 +6,3 @@ Car.find({}).lean()
     console.log(cars);
   })
   .catch(err => next(err));
-
-
