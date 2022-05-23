@@ -26,7 +26,7 @@ app.get('/', (req, res, next) => {
     Car.find({}).lean()
         .then((cars) => {
         // respond to browser only after db query completes
-        res.render('home', {cars: JSON.stringify(cars)});
+        res.render('home_react', {cars: JSON.stringify(cars)});
         })
         .catch(err => next(err));
 });
