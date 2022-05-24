@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>React App Demo</title>
+    <title>Home Page</title>
 
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
@@ -27,7 +27,7 @@ class CarRow extends React.Component {
   render() {
     const car = this.props.car;
     const name = car.name;
-    const url = "/detail?name=" + car.name;
+    const url = "/detail?name=" + name;
 
     return (
       <tr>
@@ -66,6 +66,7 @@ class CarTable extends React.Component {
     );
   }
 }
+
 class CarList extends React.Component {
   constructor(props) {
     super(props);
@@ -82,9 +83,7 @@ class CarList extends React.Component {
   }
 }
 
-
-    //ReactDOM.render(<App />, document.getElementById('root'));
-    ReactDOM.render(<CarList cars={items} />, document.getElementById('root'));
+ReactDOM.render(<CarList cars={items} />, document.getElementById('root'));
 
 </script>
 </body>
