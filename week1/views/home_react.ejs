@@ -19,17 +19,72 @@
 
     // define other components
 
-    const App = (items) => {
-      return <div>
-              <h2>Home</h2>
-              <h3>Car</h3>
-              <% items.forEach(function(name) { %>
-                <li><a href="/detail?name=<%= name.name %>"><p><%= name.name %></p></a></li>
-              <% }); %>
-             </div>;
-    }
+class CarRow extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    ReactDOM.render(<App />, document.getElementById('root'));
+  render() {
+    const car = this.props.car;
+    const name = car.name;
+    const url = "/detail?name=" + car.name;
+
+    return (
+      <tr>
+        <td><a href={url}>{name}</a></td>
+      </tr>
+    );
+  }
+}
+
+class CarTable extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const rows = [];
+
+    this.props.cars.forEach((car) => {
+      rows.push(
+        <CarRow
+          car={car}
+          key={car._id}
+        />
+      );
+    });
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Car Name</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+  }
+}
+class CarList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <CarTable
+          cars={this.props.cars}
+        />
+      </div>
+    );
+  }
+}
+
+
+    //ReactDOM.render(<App />, document.getElementById('root'));
+    ReactDOM.render(<CarList cars={items} />, document.getElementById('root'));
 
 </script>
 </body>
