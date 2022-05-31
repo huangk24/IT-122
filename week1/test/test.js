@@ -11,7 +11,7 @@ describe("Cars data", () => {
     });
 
     it("getItem return incorrect car", () => {
-        let result = cars.getItem("CLS 53 AMG");
+        let result = cars.getItem("");
         expect(result).to.be.undefined;
     });
 
@@ -30,12 +30,12 @@ describe("Cars data", () => {
     it("deleteItem delete car successfully", () => {
         let carName = "Ghibli Trofeo";
         let status = cars.deleteItem(carName);
-        expect(status).to.equal(false);
+        expect(status).to.equal(true);
     });
 
     it("deleteItem fail to delete car", () => {
         let carName = "Macan GTS";
         let status = cars.deleteItem(carName);
-        expect(status).to.equal(true);
+        expect(status).to.equal(false);
     });
 });

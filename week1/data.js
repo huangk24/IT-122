@@ -22,17 +22,17 @@ export let getItem = (value) => {
 };
 
 export let addItem = (newCar) => {
-  if (cars.includes(newCar)) {
-    cars.push({name : newCar.name, brand: newCar.brand, horsepower: newCar.horsepower, price: newCar.price}); 
+  if (cars.some(car => car.name === newCar.name)) {
+    // item already exist
     return false;
   } else {
-    // item already exist
+    cars.push({name : newCar.name, brand: newCar.brand, horsepower: newCar.horsepower, price: newCar.price}); 
     return true;
   }
 }
 
 export let deleteItem = (value) => {
-  if (cars.includes(value)) {
+  if (cars.some(car => car.name === value)) {
     let index = cars.indexOf(value);
     cars.splice(index, 1);
     return true;

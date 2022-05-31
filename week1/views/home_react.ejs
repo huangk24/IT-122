@@ -14,75 +14,6 @@
 <div id="root"></div>
 <script type="text/babel">
 
-    const items = <%- cars %>;
-    console.log(items)
-
-    // define other components
-
-class CarRow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const car = this.props.car;
-    const name = car.name;
-    const url = "/detail?name=" + name;
-
-    return (
-      <tr>
-        <td><a href={url}>{name}</a></td>
-      </tr>
-    );
-  }
-}
-
-class CarTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const rows = [];
-
-    this.props.cars.forEach((car) => {
-      rows.push(
-        <CarRow
-          car={car}
-          key={car._id}
-        />
-      );
-    });
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Car Name</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-    );
-  }
-}
-
-class CarList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <CarTable
-          cars={this.props.cars}
-        />
-      </div>
-    );
-  }
-}
-
 const Cars = (props) => {
   const listCars = props.data.map((car) =>
   <li key={car._id} id={car.id} onClick={props.clickHandler}>
@@ -110,7 +41,6 @@ class App extends React.Component {
       cars : <%- cars %>,
       currentCar: {} 
     };
-    //this.selectItem = this.selectItem.bind(this);
   }
 
   showDetail = (event) => {
