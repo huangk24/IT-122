@@ -15,19 +15,12 @@ app.use('/api', cors()); // set Access-Control-Allow-Origin header for api route
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// send static file as response
-//app.get('/', (req,res) => {
- //   res.type('text/html');
- //   res.render('home', {names : cars.getAll()});
-    //res.sendFile('home.html');
-//});
-
 app.get('/', (req, res, next) => {  
     Car.find({}).lean()
         .then((cars) => {
         // respond to browser only after db query completes
-        res.render('home_react', {cars: JSON.stringify(cars)});
-        })
+          res.render('home_react', {cars: JSON.stringify(cars)});
+      })
         .catch(err => next(err));
 });
 
@@ -65,18 +58,18 @@ app.get('/api/delete/:name', (req,res) => {
   });
 
 
-//app.get('/detail', (req,res) => {
- //   res.type('text/html');
- //   let carname = req.query.name;   
- //   res.render("detail", {car : cars.getItem(carname)});
-    //res.render("Detail for " + req.query.name);
-//});
+app.get('/detail', (req,res) => {
+    res.type('text/html');
+    let carname = req.query.name;   
+    res.render("detail", {result : Cars.getItem(carname)});
+    res.render("Detail for " + req.query.name);
+});
 
-//app.post('/detail', (req,res) => {
-  //  res.type('text/html');
-  //  console.log(req.body);
-  // res.end("Detail for " + req.body.name);
-//});
+app.post('/detail', (req,res) => {
+    res.type('text/html');
+    console.log(req.body);
+   res.end("Detail for " + req.body.name);
+});
 
 app.get('/detail', (req,res,next) => {
     // db query can use request parameters
