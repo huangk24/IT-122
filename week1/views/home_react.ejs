@@ -94,10 +94,12 @@ const Cars = (props) => {
 const CarDetail = (props) => {
   return <div>Detail<hr/>
     <form>
-      Brand: <input type="text" name="brand" value={props.car.brand || ""} /><br />
-      Name: <input type="text" name="name" value={props.car.name || ""} />
+      Brand: <input type="text" name="brand" onChange={props.handleChange} value={props.car.brand || ""} /><br />
+      Name: <input type="text" name="name" onChange={props.handleChange} value={props.car.name || ""} /><br />
+      Horsepower: <input type="number" name="hp" onChange={props.handleChange} value={props.car.horsepower || ""} /><br />
+      Price: <input type="number" name="price" onChange={props.handleChange} value={props.car.price || ""} /><br />
+      <button onClick={props.clearForm}>Clear</button>
     </form>
-    {props.car.brand} {props.car.name}, Horsepower: {props.car.horsepower}, ${props.car.price}
     </div>
 }
 
@@ -112,11 +114,20 @@ class App extends React.Component {
   }
 
   showDetail = (event) => {
-    console.log(event.target)
-    console.log(event.target.innerText)
     let title = event.target.innerText;
     let newItem = this.state.cars.find((car) => car.name == title);
     this.setState({"currentCar": newItem})
+  }
+
+  fieldChanged = (event) => {
+    let newItem = this.state.currentCar;
+    console.log(event.target.value)
+    newItem[event.target.name] = event.target.value;
+    this.setState({currentCar: newItem})
+  }
+
+  clearForm = () => {
+    this.setState({brand:"", name: "", horsepower: "", price: ""});
   }
 
   render() {
@@ -124,7 +135,9 @@ class App extends React.Component {
       <div>
         <h2>Car List</h2>
         <Cars data={this.state.cars} clickHandler={this.showDetail} />
-        <CarDetail car={this.state.currentCar} />
+        <CarDetail 
+          car={this.state.currentCar} handleChange={this.fieldChanged} onClick={this.clearForm}
+          />
       </div>
     );
   }
