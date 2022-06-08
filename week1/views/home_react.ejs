@@ -27,7 +27,7 @@ const CarDetail = (props) => {
     <form>
       Brand: <input type="text" name="brand" onChange={props.handleChange} value={props.car.brand || ""} /><br />
       Name: <input type="text" name="name" onChange={props.handleChange} value={props.car.name || ""} /><br />
-      Horsepower: <input type="number" name="hp" onChange={props.handleChange} value={props.car.horsepower || ""} /><br />
+      Horsepower: <input type="number" name="horsepower" onChange={props.handleChange} value={props.car.horsepower || ""} /><br />
       Price: <input type="number" name="price" onChange={props.handleChange} value={props.car.price || ""} /><br />
     </form>
     <button name="clear" onClick={props.clearForm}>Clear</button>&nbsp;
@@ -67,19 +67,41 @@ class App extends React.Component {
   }
 
   saveItem = () => {
-    console.log(this.state.currentCar)
     if (console.log(this.state.currentCar) == {}) return
+    let newCar = this.state.currentCar;
     fetch("/api/add", {
        method: "POST",
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify(this.state.currentCar)
     })
       .then(res => res.json())
-      .then((json) => { console.log(json) });
+      .then((json) => { 
+        console.log(json) 
+        if (json.updated === 0) {
+          newCar._id = json._id
+          let newList = this.state.cars;
+          newList.push(newCar);
+          this.setState({cars: newList})
+        }
+      });
   }
 
   deleteItem = () => {
-    
+    if (console.log(this.state.currentCar) == {}) return
+    let deleteName = this.state.currentCar.name
+    let url = "/api/delete/" + deleteName;
+    fetch(url)
+      .then(res => res.json())
+      .then((json) => { 
+        console.log(json) 
+        if (json.deleted.deletedCount > 0) {
+          this.setState({currentCar: {}})
+          let newList = this.state.cars.filter(car => {
+            return car.name != deleteName;
+          })
+          this.setState({cars: newList, currentCar: {}})
+        }
+      });
   }
 
   render() {
