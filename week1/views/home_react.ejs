@@ -29,8 +29,10 @@ const CarDetail = (props) => {
       Name: <input type="text" name="name" onChange={props.handleChange} value={props.car.name || ""} /><br />
       Horsepower: <input type="number" name="hp" onChange={props.handleChange} value={props.car.horsepower || ""} /><br />
       Price: <input type="number" name="price" onChange={props.handleChange} value={props.car.price || ""} /><br />
-      <button onClick={props.clearForm}>Clear</button>
     </form>
+    <button name="clear" onClick={props.clearForm}>Clear</button>&nbsp;
+    <button name="save" onClick={props.saveItem}>Save</button>&nbsp;
+    <button name="delete" onClick={props.deleteItem}>Delete</button>&nbsp;
     </div>
 }
 
@@ -41,6 +43,11 @@ class App extends React.Component {
       cars : <%- cars %>,
       currentCar: {} 
     };
+    this.showDetail = this.showDetail.bind(this);
+    this.fieldChanged = this.fieldChanged.bind(this);
+    this.clearForm = this.clearForm.bind(this);
+    this.saveItem = this.saveItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   showDetail = (event) => {
@@ -51,13 +58,28 @@ class App extends React.Component {
 
   fieldChanged = (event) => {
     let newItem = this.state.currentCar;
-    console.log(event.target.value)
     newItem[event.target.name] = event.target.value;
     this.setState({currentCar: newItem})
   }
 
   clearForm = () => {
-    this.setState({brand:"", name: "", horsepower: "", price: ""});
+    this.setState({currentCar: {}});
+  }
+
+  saveItem = () => {
+    console.log(this.state.currentCar)
+    if (console.log(this.state.currentCar) == {}) return
+    fetch("/api/add", {
+       method: "POST",
+       headers: { 'Content-Type': 'application/json' },
+       body: JSON.stringify(this.state.currentCar)
+    })
+      .then(res => res.json())
+      .then((json) => { console.log(json) });
+  }
+
+  deleteItem = () => {
+    
   }
 
   render() {
@@ -66,7 +88,11 @@ class App extends React.Component {
         <h2>Car List</h2>
         <Cars data={this.state.cars} clickHandler={this.showDetail} />
         <CarDetail 
-          car={this.state.currentCar} handleChange={this.fieldChanged} onClick={this.clearForm}
+          car={this.state.currentCar} 
+          handleChange={this.fieldChanged} 
+          clearForm={this.clearForm}
+          saveItem={this.saveItem}
+          deleteItem={this.deleteItem}
           />
       </div>
     );
